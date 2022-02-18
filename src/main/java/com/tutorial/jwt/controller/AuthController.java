@@ -3,6 +3,8 @@ package com.tutorial.jwt.controller;
 import com.tutorial.jwt.dto.LoginRequestDto;
 import com.tutorial.jwt.dto.SignupRequestDto;
 import com.tutorial.jwt.dto.TokenDto;
+import com.tutorial.jwt.dto.UserDto;
+import com.tutorial.jwt.entity.User;
 import com.tutorial.jwt.jwt.JwtFilter;
 import com.tutorial.jwt.jwt.TokenProvider;
 import com.tutorial.jwt.service.UserService;
@@ -53,5 +55,12 @@ public class AuthController {
     ) throws Exception {
         userService.signup(signupRequestDto);
         return new ResponseEntity<>("회원가입이 완료되었습니다.", HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> myInfo() throws Exception {
+        User user = userService.getUser();
+        UserDto userDto = new UserDto(user);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 }
