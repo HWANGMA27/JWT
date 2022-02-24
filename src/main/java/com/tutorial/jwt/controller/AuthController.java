@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 
@@ -34,7 +33,6 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
 
@@ -46,7 +44,7 @@ public class AuthController {
 
     @GetMapping("/login/fail")
     public void loginFail(@RequestParam(value = "error", required = false) String error,
-                                       @RequestParam(value = "exception", required = false) String exception) throws UnsupportedEncodingException {
+                                       @RequestParam(value = "exception", required = false) String exception) {
         throw new RuntimeException(exception);
     }
 
@@ -58,7 +56,7 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDto> myInfo() throws Exception {
+    public ResponseEntity<UserDto> myInfo() {
         User user = userService.getUser();
         UserDto userDto = new UserDto(user);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
