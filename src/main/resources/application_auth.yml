@@ -3,3 +3,4 @@ jwt:
   #HS512
   secret: aGVsbG8tbXluYW1laXMtaHdhbmctbmljZXRvbWVldHlvdS1oYXZlYW5pY2VkYXktYW5kLXNlZXlvdXNvb24tdGhhbmt5b3V1dXV1dXV1dXV1dXV1dXV1dXV1dXV1Cg==
   token-validity-in-seconds: 1800 #30분
+  refresh-expiration-in-seconds: 1209600 #2주
