@@ -11,7 +11,6 @@ public class JwtApplication {
             "spring.config.location=" +
                     "classpath:/application.yml," +
                     "classpath:/application_auth.yml";
-
     public static void main(String[] args) {
         new SpringApplicationBuilder(JwtApplication.class).properties(APPLICATION).run(args);
     }

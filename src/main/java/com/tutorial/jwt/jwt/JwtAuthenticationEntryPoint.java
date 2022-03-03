@@ -37,7 +37,7 @@ public class JwtAuthenticationEntryPoint extends SimpleUrlAuthenticationFailureH
          errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다 관리자에게 문의하세요.";
       }
       errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
-      setDefaultFailureUrl("/user/login/fail?error=true&exception=" + errorMessage);
+      setDefaultFailureUrl("/login/fail?error=true&exception=" + errorMessage);
       super.onAuthenticationFailure(request, response, exception);
    }
 }

@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
    @Override
    @Transactional
    public UserDetails loadUserByUsername(final String email) {
-      return userRepository.findByUserIdWithAuthority(email)
+      return userRepository.findByUserWithAuthority(email)
          .map(user -> createUser(email, user))
          .orElseThrow(()-> new RuntimeException("Not Found User"));
    }

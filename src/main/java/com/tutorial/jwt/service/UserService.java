@@ -22,8 +22,8 @@ public class UserService {
     public final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signup(SignupRequestDto requestDto) throws Exception {
-        if (userRepository.findByUserIdWithAuthority(requestDto.getEmail()).orElse(null) != null) {
+    public void signup(SignupRequestDto requestDto) {
+        if (userRepository.findByUserWithAuthority(requestDto.getEmail()).orElse(null) != null) {
             throw new RuntimeException("User Not Found");
         }
         User user = User.builder()
@@ -41,7 +41,7 @@ public class UserService {
     }
 
     public User getUser() {
-        return SecurityUtil.getCurrentUserId().flatMap(userRepository::findByUserIdWithAuthority)
+        return SecurityUtil.getCurrentUserId().flatMap(userRepository::findByUserWithAuthority)
                 .orElseThrow(() -> new RuntimeException("User Not Found"));
     }
 }
