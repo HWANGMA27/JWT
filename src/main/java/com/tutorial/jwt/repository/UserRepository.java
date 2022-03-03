@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-   @Query("SELECT U FROM User U JOIN FETCH UserAuthority A " +
-           "ON U = A.user WHERE U.email = :email")
-   Optional<User> findByUserIdWithAuthority(String email);
+   @Query("SELECT U FROM User U JOIN FETCH U.authorities A " +
+           "WHERE U.email = :email")
+   Optional<User> findByUserWithAuthority(String email);
 }
