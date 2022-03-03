@@ -55,17 +55,16 @@ public class AuthController {
         throw new RuntimeException(exception);
     }
 
-    @PostMapping(value = "/signup", produces = "application/json; charset=utf8")
-    public ResponseEntity<String> signup(@RequestBody SignupRequestDto signupRequestDto
-    ) throws Exception {
-        userService.signup(signupRequestDto);
-        return new ResponseEntity<>("회원가입이 완료되었습니다.", HttpStatus.OK);
-    }
+    @PostMapping("/refreshToken")
+    public ResponseEntity<JwtDto> refreshToken(@RequestBody JwtDto request) {
+        String requestRefreshToken = request.getRefreshToken();
+        RefreshToken refreshToken = refreshTokenService.findByRefreshToken(requestRefreshToken);
+        refreshTokenProvider.verifyExpiration(refreshToken);
 
-    @GetMapping("/me")
-    public ResponseEntity<UserDto> myInfo() {
-        User user = userService.getUser();
-        UserDto userDto = new UserDto(user);
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+        String accessToken = request.getAccessToken();
+        Authentication authentication = tokenProvider.getAuthentication(accessToken);
+        String newAccessToken = tokenProvider.createToken(authentication);
+
+        return ResponseEntity.ok(new JwtDto(newAccessToken, requestRefreshToken));
     }
 }
