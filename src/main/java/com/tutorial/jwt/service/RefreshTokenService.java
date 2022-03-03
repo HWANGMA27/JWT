@@ -16,7 +16,7 @@ public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional(readOnly = true)
-    public RefreshToken findUserByRefreshToken(String token) {
+    public RefreshToken findByRefreshToken(String token) {
         return refreshTokenRepository.findByToken(token).orElseThrow(() -> new RefreshTokenException(token, "Refresh token is not in database!"));
     }
 

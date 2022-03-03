@@ -5,7 +5,6 @@ import com.tutorial.jwt.entity.User;
 import com.tutorial.jwt.exception.RefreshTokenException;
 import com.tutorial.jwt.service.RefreshTokenService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
