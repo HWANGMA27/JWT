@@ -20,7 +20,6 @@ import java.io.UnsupportedEncodingException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/user")
 public class AuthController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;

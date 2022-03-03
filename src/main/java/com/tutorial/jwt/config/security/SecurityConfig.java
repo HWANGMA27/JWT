@@ -63,7 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // signup과 login은 전체 사용자에게 오픈, 나머지는 자격을 요구한다.
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/**").permitAll()
+                .antMatchers("/login/**").permitAll()
+                .antMatchers("/signup/**").permitAll()
+                .antMatchers("/signin/**").permitAll()
                 .anyRequest().hasAnyRole("USER", "ADMIN")
 
                 .and()
